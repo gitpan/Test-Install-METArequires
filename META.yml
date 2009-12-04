@@ -1,6 +1,6 @@
 ---
 name: Test-Install-METArequires
-version: 0.01
+version: 0.02
 author:
   - 'Jozef Kutej <jkutej@cpan.org>'
 abstract: TAP output of installing requires listed in META.yml
@@ -21,10 +21,10 @@ configure_requires:
 provides:
   Test::Install::METArequires:
     file: lib/Test/Install/METArequires.pm
-    version: 0.01
+    version: 0.02
   Test::iMETAr:
     file: lib/Test/iMETAr.pm
-    version: 0.01
+    version: 0.02
 generated_by: Module::Build version 0.35
 meta-spec:
   url: http://module-build.sourceforge.net/META-spec-v1.4.html
