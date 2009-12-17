@@ -27,7 +27,7 @@ use IPC::Run 'run', 'timeout';
 use Test::Builder;
 use File::Basename 'fileparse';
 
-our $VERSION = '0.02';
+our $VERSION = '0.03';
 
 my $tb = Test::Builder->new();
 
@@ -70,8 +70,15 @@ sub t {
 
 =head2 install($module, $version)
 
-Do C<sudo cpan -i $module> if the required C<$version> is not jet
+Do C<cpan -i $module> if the required C<$version> is not jet
 installed.
+
+If L<dbedia::Debian> is loaded. It will install modules from Debian packages
+if available. Or at least module dependencies if higher version is required
+than it is available in Debian.
+
+Set C<$ENV{IMETAR_SUDO}> to true if `sudo` has to be executed before each
+C<cpan> or C<apt-get> commands.
 
 =cut
 
@@ -89,13 +96,35 @@ sub install {
         return;
     }
     
+    # use `sudo ...` if required
+    my @sudo = ();
+    push @sudo, 'sudo'
+        if $ENV{IMETAR_SUDO};
+    
     # install module
-    my ($in, $out);
-    if (run [ 'sudo', 'cpan', '-i', $module ], \$in, \$out, \$out, timeout( $self->cpan_i_timeout )) {
+    my ($in, $out, $dep_out) = ('', '', '');
+    my @run = (@sudo, 'cpan', '-i', $module);
+
+    # install Debian package if there is one and dbedia::Debian is loaded
+    if ($INC{'dbedia/Debian.pm'}) {
+        my $package_name = dbedia::Debian->find_perl_module_package($module, $version);
+        if ($package_name) {
+            @run = (@sudo, 'apt-get', 'install', '--yes', $package_name);
+        }
+        # if not found for that version try to find an old version and install build dependecies
+        else {
+            $package_name = dbedia::Debian->find_perl_module_package($module);
+            run [ @sudo, 'apt-get', 'build-dep', '--yes', $package_name ], \$in, \$dep_out, \$dep_out, timeout( $self->cpan_i_timeout )
+                if ($package_name);
+        }
+    }
+    
+    if (run [ @run ], \$in, \$out, \$out, timeout( $self->cpan_i_timeout )) {
         eval "use $module $version;";
         if ($@) {
             $tb->ok(0, $test_name);
-            $tb->note($out);
+            $tb->note($dep_out.$out);
+            $tb->note($@);
         }
         else {
             $tb->ok(1, $test_name);
@@ -132,6 +161,17 @@ Return the location of F<METArequires.t> file.
 sub t_file {
     my ($filename, $dirname) = fileparse($INC{"Test/Install/METArequires.pm"}, '.pm');
     return $dirname.$filename.'.t';
+}
+
+=head2 t_debian_file
+
+Return the location of F<METArequires-Debian.t> file.
+
+=cut
+
+sub t_debian_file {
+    my ($filename, $dirname) = fileparse($INC{"Test/Install/METArequires.pm"}, '.pm');
+    return $dirname.$filename.'-Debian.t';
 }
 
 1;

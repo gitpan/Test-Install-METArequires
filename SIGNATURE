@@ -1,5 +1,5 @@
 This file contains message digests of all files listed in MANIFEST,
-signed via the Module::Signature module, version 0.55.
+signed via the Module::Signature module, version 0.61.
 
 To verify the content in this distribution, first make sure you have
 Module::Signature installed, then type:
@@ -15,14 +15,15 @@ not run its Makefile.PL or Build.PL.
 Hash: SHA1
 
 SHA1 38297fa7f5003be2252c12284a0b313dd3fd7335 Build.PL
-SHA1 5d33f7718733e95a1058c659d14569b7071f3aae Changes
-SHA1 bb54ce50816eee12988ac2ced9cc0ab624fb5b3c MANIFEST
-SHA1 6ea32024883b7f1e77f723021b0b152895a31cef META.yml
+SHA1 368a8aed135833a4bb8b68e0f3bf8a0d84405bd6 Changes
+SHA1 df19271ffbe7527679d1b3f03f65be5d6cc20e31 MANIFEST
+SHA1 25a605fcd4a98764f56673eafe857a90dec820dc META.yml
 SHA1 c20cef2b6ef5641f590e512a3ccd76fe08a42820 Makefile.PL
-SHA1 ba3196e97e61dc1815d16c74027733b83dc2b47c README
-SHA1 37dfcd6708d481bc2f53d84e3ec4661df6f816c8 lib/Test/Install/METArequires.pm
+SHA1 74728f5d07ecf6e6cf2be901dc4d5a935d7a8428 README
+SHA1 de8d7931a86db4a423cbb0a4035ca8da57e1d698 lib/Test/Install/METArequires-Debian.t
+SHA1 84b10d95764f70cb492d8ae7a76a91617b270037 lib/Test/Install/METArequires.pm
 SHA1 698954b4769b93ddc2613bfb66246fb6a9b8d156 lib/Test/Install/METArequires.t
-SHA1 962b8d699e21f306f11ff8821356f4d8d07a1b3f lib/Test/iMETAr.pm
+SHA1 ca81fd909574ebc3c3e4f73fbe86880535b098a9 lib/Test/iMETAr.pm
 SHA1 605f05a5336cc37a476bb10b218f5ad1a2bd340d t/00_compile.t
 SHA1 41533fbd463e42d2ecf1e119eca910c16809d13e t/distribution.t
 SHA1 10c564e5ffe84748070827b350edbf3d6b832b20 t/fixme.t
@@ -32,7 +33,7 @@ SHA1 640935336dc1123c0069bcf5432bcaedc2cf22d3 t/pod.t
 -----BEGIN PGP SIGNATURE-----
 Version: GnuPG v1.4.10 (GNU/Linux)
 
-iEYEARECAAYFAksZbUUACgkQC0OgUPgL2SdLuwCdFkPl2qGcij/uf1cc9fYbLizK
-/JoAn0a78cbFziq5HnTgmAlZXfFkrw6n
-=3QCR
+iEYEARECAAYFAksqmpcACgkQC0OgUPgL2ScvIACgt/y6fB6lRfpoeXHnsKaIfqow
+6tAAnjzo0NjRqtzaHdRBPcJlizQnTrZD
+=fxk2
 -----END PGP SIGNATURE-----
